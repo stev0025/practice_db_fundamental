@@ -1,0 +1,76 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: db101_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: db_fundamentals
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./config/postgres/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+      - ./scripts/01-init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d db_fundamentals"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+    networks:
+      - db101_net
+
+  pgbouncer:
+    image: edoburu/pgbouncer:latest
+    container_name: db101_pgbouncer
+    restart: unless-stopped
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: postgres_password
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: db_fundamentals
+      POOL_MODE: transaction
+      MAX_CLIENT_CONN: 200
+      DEFAULT_POOL_SIZE: 20
+      MIN_POOL_SIZE: 5
+      RESERVE_POOL_SIZE: 5
+      ADMIN_USERS: postgres
+      AUTH_TYPE: scram-sha-256
+      IGNORE_STARTUP_PARAMETERS: extra_float_digits,search_path
+    ports:
+      - "6432:5432"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - db101_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: db101_redis
+    restart: unless-stopped
+    command: ["redis-server", "--requirepass", "redis_password", "--appendonly", "yes", "--maxmemory", "64mb", "--maxmemory-policy", "noeviction"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "redis_password", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+    networks:
+      - db101_net
+
+volumes:
+  pg_data:
+    name: db101_pg_data
+  redis_data:
+    name: db101_redis_data
+
+networks:
+  db101_net:
+    name: db101_net
