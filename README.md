@@ -72,7 +72,7 @@ See [PLAN.md](file:///home/steven/projects/practice_db_fundamental/PLAN.md) for 
 ### Summary of Modules
 
 * **[Module 1: Relational & Query Foundations](file:///home/steven/projects/practice_db_fundamental/modules/module-01-relational-queries)**
-  - Session 1.1: Schema Integrity, Constraints & The 8KB Page
+  - Session 1.1: Schema Integrity, Constraints & The 8KB Page ✅
   - Session 1.2: Indexing Mechanics & The Anatomy of a B-Tree
   - Session 1.3: Demystifying `EXPLAIN (ANALYZE, BUFFERS)` & Planner Cost Models
   - Session 1.4: High-Performance Queries, Window Functions & CTE Traps

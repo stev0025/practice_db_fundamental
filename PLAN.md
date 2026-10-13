@@ -42,7 +42,7 @@
 
 ### Module 1: Relational & Query Foundations (Layer A)
 
-#### Session 1.1: Schema Modeling, Constraints & The 8KB Page
+#### Session 1.1: Schema Modeling, Constraints & The 8KB Page ✅ [COMPLETED]
 * **Mental Model:** A table isn't an abstract spreadsheet; it is an array of 8KB disk pages containing row pointers and tuple headers. Constraints aren't validation boilerplate; they are engine-level consistency invariants.
 * **Invisible Made Visible:**
   - Raw page header inspection using `pageinspect` (`get_raw_page`, `page_header`).
