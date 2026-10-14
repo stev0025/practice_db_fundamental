@@ -56,7 +56,7 @@
 
 ---
 
-#### Session 1.2: Indexing Mechanics & The Anatomy of a B-Tree
+#### Session 1.2: Indexing Mechanics & The Anatomy of a B-Tree ✅ [COMPLETED]
 * **Mental Model:** A B-Tree index is an ordered, balanced search tree of `(key, ctid)` tuples pointing to heap pages. Index scans require random I/O; sequential scans require sequential I/O.
 * **Invisible Made Visible:**
   - B-tree root, interior, and leaf pages using `bt_page_items` from `pageinspect`.
