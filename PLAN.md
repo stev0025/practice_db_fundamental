@@ -71,7 +71,7 @@
 
 ---
 
-#### Session 1.3: Demystifying `EXPLAIN (ANALYZE, BUFFERS)` & Planner Cost Models
+#### Session 1.3: Demystifying `EXPLAIN (ANALYZE, BUFFERS)` & Planner Cost Models 🚧 [SCAFFOLDED]
 * **Mental Model:** `EXPLAIN` shows the planner's guess; `EXPLAIN (ANALYZE, BUFFERS)` runs the query and records exact execution time, row count errors, and memory/disk buffer hits (`shared hit`, `read`, `written`).
 * **Invisible Made Visible:**
   - `shared hit` (memory cache hit) vs `read` (OS page cache / NVMe read).
