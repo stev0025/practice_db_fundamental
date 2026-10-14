@@ -85,7 +85,7 @@
 
 ---
 
-#### Session 1.4: High-Performance Queries, Window Functions & CTE Traps
+#### Session 1.4: High-Performance Queries, Window Functions & CTE Traps 🚧 [SCAFFOLDED]
 * **Mental Model:** SQL is set-based, not procedural. Naive queries cause $O(N \cdot M)$ Cartesian products or N+1 roundtrips. Modern CTEs (`WITH`) can be inlined (since PG 12), but unoptimized subqueries destroy performance.
 * **Invisible Made Visible:**
   - Nested Loop vs Hash Join vs Merge Join in query plans.
