@@ -11,3 +11,9 @@
 2. **Leftmost Prefix:** `(a, b)` serves `a` and `a, b`, never `b` alone; put the always-filtered `=` column first.
 3. **Selectivity Cliff:** Indexes save page reads, so at ~14% of rows (every page touched) a Seq Scan beats them.
 4. **ORDER BY + LIMIT:** A sorted index with `LIMIT n` reads ~n entries and skips the sort.
+
+### Session 1.3: EXPLAIN (ANALYZE, BUFFERS) & Cost Model
+1. **Read Plans:** Start at the innermost line; compare `rows=` (estimate) to `actual rows=`, and wrap DML in `BEGIN; ... ROLLBACK;` since `ANALYZE` really runs it.
+2. **Cost Formula:** Seq Scan = `relpages*1.0 + reltuples*0.01 + reltuples*0.0025`; index plans add `random_page_cost` (4.0) per table page, so they lose as matches grow.
+3. **Covering Index:** `INCLUDE` the selected columns for an Index Only Scan with `Heap Fetches: 0` and fewer buffers.
+4. **Diagnose Slow Queries:** Bad estimates → `ANALYZE`; high `read` → disk-bound; all `hit` but slow → CPU-bound (too many rows).
